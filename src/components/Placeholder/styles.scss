@@ -1,0 +1,16 @@
+@import '../../assets/scss/mixins.scss';
+
+.placeholder-list {
+  @include flex(column);
+
+  .placeholder-item {
+    @include flex(row);
+    margin-bottom: 1rem;
+
+    .group-left {
+      @include flex(column);
+      padding-left: 1rem;
+    }
+  }
+
+}
