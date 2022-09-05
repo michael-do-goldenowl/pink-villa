@@ -70,7 +70,8 @@ function App() {
     const {
       node: {
         title,
-        ImageStyle_thumbnail: thumbnail,
+        field_photo_image_section: thumbnail,
+        path,
         last_update: lastUpdate,
       }
     } = item;
@@ -79,6 +80,7 @@ function App() {
         thumbnail={process.env.REACT_APP_API_URL.concat(thumbnail)}
         title={truncateText(title)}
         dateTime={formatTime(lastUpdate)}
+        path={process.env.REACT_APP_API_URL.concat(path)}
       />
     );
   }, []);
