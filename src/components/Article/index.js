@@ -13,9 +13,11 @@ function Article({ title, dateTime, thumbnail }) {
 
       <div className='info'>
         <h2 className='title'>{title}</h2>
-        <time dateTime={dateTime} className='datetime'>
-          {dateTime}
-        </time>
+        <p className='datetime'>
+          <time dateTime={dateTime} >
+            {dateTime}
+          </time>
+        </p>
       </div>
     </article>
   )

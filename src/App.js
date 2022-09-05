@@ -3,6 +3,7 @@ import { Fragment, useCallback, useEffect } from 'react';
 import useMergeState from './hooks/useMergeState';
 
 import Article from './components/Article';
+import Placeholder from './components/Placeholder';
 
 import API from './services/API';
 import { truncateText, formatTime } from './utils';
@@ -17,7 +18,7 @@ function App() {
     isEndOfList: false,
   });
 
-  const { articles } = data;
+  const { articles, loading } = data;
 
   useEffect(() => {
     fetchData();
@@ -79,6 +80,8 @@ function App() {
           <div className='separator' />
         </Fragment>
       ))}
+
+      {loading && <Placeholder />}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-export const truncateText = (string = '', maxLength = 55) =>
+export const truncateText = (string = '', maxLength = 60) =>
   string.length > maxLength
     ? `${string.substring(0, maxLength)}…`
     : string
