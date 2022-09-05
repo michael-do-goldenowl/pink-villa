@@ -1,4 +1,5 @@
-@import '../../assets/scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
 
 .article-container {
   @include flex(row);

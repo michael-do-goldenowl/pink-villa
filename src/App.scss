@@ -1,4 +1,4 @@
-@import 'assets/scss';
+@import 'assets/scss/mixins.scss';
 
 .home-container {
   @include flex(column);

@@ -1,4 +1,4 @@
-@import '../../assets/scss';
+@import '../../assets/scss/mixins.scss';
 
 .placeholder-list {
   @include flex(column);
