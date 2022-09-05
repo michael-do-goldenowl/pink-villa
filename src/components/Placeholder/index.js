@@ -7,7 +7,7 @@ export default function Placeholder() {
     <div className='placeholder-list'>
       {[1, 2, 3].map(ele => (
         <div key={ele} className='placeholder-item' >
-          <PlaceholderLoading shape='rect' width={100} height={80} />
+          <PlaceholderLoading shape='rect' width={144} height={80} />
           <div className='group-left'>
             {[1, 2, 3, 4].map(ele => (
               <div key={ele}>
