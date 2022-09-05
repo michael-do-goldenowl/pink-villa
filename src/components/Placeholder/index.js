@@ -11,7 +11,7 @@ export default function Placeholder() {
           <div className='group-left'>
             {[1, 2, 3, 4].map(ele => (
               <div key={ele}>
-                <PlaceholderLoading shape='rect' width={200} height={10} />
+                <PlaceholderLoading shape='rect' width='100%' height={10} />
               </div>
             ))}
           </div>
@@ -19,4 +19,4 @@ export default function Placeholder() {
       ))}
     </div>
   );
-}
+};

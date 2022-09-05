@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect } from 'react';
+import { Fragment, useCallback, useEffect, useRef } from 'react';
 
 import useMergeState from './hooks/useMergeState';
 
@@ -11,6 +11,8 @@ import { truncateText, formatTime } from './utils';
 import './App.scss';
 
 function App() {
+  const listRef = useRef();
+
   const [data, setData] = useMergeState({
     articles: [],
     loading: false,
@@ -18,16 +20,26 @@ function App() {
     isEndOfList: false,
   });
 
-  const { articles, loading } = data;
+  const { articles, loading, isEndOfList, currentPage } = data;
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const itemAlreadyInList = (firstNodeId) => {
     return articles.some(item => item.node.nid === firstNodeId);
   }
+
+  const onScroll = () => {
+    if (listRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listRef.current;
+      const isReachEnd = Math.round(scrollTop) + clientHeight === scrollHeight;
+
+      if (isReachEnd && !loading && !isEndOfList) {
+        fetchData(currentPage + 1);
+      }
+    }
+  };
 
   const fetchData = async (page = 0) => {
     try {
@@ -39,7 +51,7 @@ function App() {
       }
       const { data: { nodes } } = await API.get(endpoint);
       if (itemAlreadyInList(nodes[0].nid)) {
-        return setData({ isEndOfList: true })
+        return setData({ isEndOfList: true });
       }
 
       setData({
@@ -47,11 +59,10 @@ function App() {
         currentPage: page,
         isEndOfList: false,
       });
-
     } catch (error) {
       alert(error.message);
     } finally {
-      setData({ loading: false })
+      setData({ loading: false });
     }
   }
 
@@ -69,11 +80,15 @@ function App() {
         title={truncateText(title)}
         dateTime={formatTime(lastUpdate)}
       />
-    )
+    );
   }, []);
 
   return (
-    <div className="home-container">
+    <div
+      ref={listRef}
+      onScroll={onScroll}
+      className='home-container'
+    >
       {articles.map(item => (
         <Fragment key={item.node.nid}>
           {renderArticle(item)}

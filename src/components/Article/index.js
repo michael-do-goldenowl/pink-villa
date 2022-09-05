@@ -9,6 +9,7 @@ function Article({ title, dateTime, thumbnail }) {
         alt={title}
         className='thumbnail'
         loading='lazy'
+        crossOrigin='anonymous'
       />
 
       <div className='info'>
