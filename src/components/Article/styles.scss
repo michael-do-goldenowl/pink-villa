@@ -1,0 +1,27 @@
+@import '../../assets/scss';
+
+.article-container {
+  @include flex(row);
+
+  .thumbnail {
+    height: 6rem;
+    width: 10rem;
+    border-radius: 16px;
+  }
+
+  .info {
+    padding-left: 1rem;
+
+    .title {
+      margin: 0;
+      font-size: 1rem;
+      color: $primary-black;
+    }
+
+    .datetime {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: $primary-gray;
+    }
+  }
+}

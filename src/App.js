@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from 'react';
+import { truncateText } from './utils';
+
+import Article from './components/Article';
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="home-container">
+      {[1, 2, 3].map(ele => (
+        <Fragment key={ele}>
+          <Article
+            thumbnail='https://www.pinkvilla.com/imageresize/shanaya_ananya_suhana_.jpg?width=270&t=pvorg&cropTop=true'
+            title={truncateText('Fabulous Lives of Bollywood Wives 2: Shanaya Kapoor feels Ananya Panday, Suhana Khan will get married first')}
+            dateTime='Sep 04, 2022 04:54 PM IST'
+          />
+          <div className='separator' />
+        </Fragment>
+      ))}
     </div>
   );
 }
