@@ -23,8 +23,7 @@ function Article({ title, dateTime, thumbnail, path }) {
         </div>
       </article>
     </a>
-
-  )
+  );
 }
 
 export default memo(Article);
