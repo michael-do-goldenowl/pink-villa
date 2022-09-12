@@ -16,7 +16,7 @@ function App() {
   const [data, setData] = useMergeState({
     articles: [],
     loading: false,
-    currentPage: 0,
+    currentPage: 1,
     isEndOfList: false,
   });
 
@@ -25,10 +25,6 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const itemAlreadyInList = (firstNodeId) => {
-    return articles.some(item => item.node.nid === firstNodeId);
-  }
 
   const onScroll = () => {
     if (listRef.current) {
@@ -41,16 +37,13 @@ function App() {
     }
   };
 
-  const fetchData = async (page = 0) => {
+  const fetchData = async (page = 1) => {
     try {
       setData({ loading: true });
 
-      let endpoint = process.env.REACT_APP_API_URL.concat('/photo-gallery-feed-page');
-      if (page) {
-        endpoint = endpoint.concat(`/page/${page}`);
-      }
+      const endpoint = process.env.REACT_APP_API_URL.concat(`/photo-gallery-feed-page/page/${page}`);
       const { data: { nodes } } = await API.get(endpoint);
-      if (itemAlreadyInList(nodes[0].nid)) {
+      if (!nodes.length) {
         return setData({ isEndOfList: true });
       }
 
@@ -77,10 +70,10 @@ function App() {
     } = item;
     return (
       <Article
-        thumbnail={process.env.REACT_APP_API_URL.concat(thumbnail)}
+        thumbnail={thumbnail}
         title={truncateText(title)}
         dateTime={formatTime(lastUpdate)}
-        path={process.env.REACT_APP_API_URL.concat(path)}
+        path={process.env.REACT_APP_BASE_SERVER_DOMAIN.concat(path)}
       />
     );
   }, []);
