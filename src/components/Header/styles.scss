@@ -1,0 +1,30 @@
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
+header {
+  width: 100%;
+
+  .header-container {
+    @include flex(row, center, space-between);
+    background-color: $purple;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem 24vw;
+
+    @include responsive(mobile) {
+      padding: 0.5rem 0;
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .logo-avt {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+}
+

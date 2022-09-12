@@ -1,9 +1,10 @@
-import { Fragment, useCallback, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
 import useMergeState from './hooks/useMergeState';
 
 import Article from './components/Article';
 import Placeholder from './components/Placeholder';
+import Header from './components/Header';
 
 import API from './services/API';
 import { truncateText, formatTime } from './utils';
@@ -59,9 +60,16 @@ function App() {
     }
   }
 
-  const renderArticle = useCallback((item) => {
+  const handleRemoveItem = (event, nid) => {
+    event.preventDefault();
+    const newArticleList = articles.filter(article => article.node.nid !== nid)
+    setData({ articles: newArticleList })
+  }
+
+  const renderArticle = (item) => {
     const {
       node: {
+        nid,
         title,
         field_photo_image_section: thumbnail,
         path,
@@ -70,29 +78,35 @@ function App() {
     } = item;
     return (
       <Article
+        nid={nid}
         thumbnail={thumbnail}
         title={truncateText(title)}
         dateTime={formatTime(lastUpdate)}
         path={process.env.REACT_APP_BASE_SERVER_DOMAIN.concat(path)}
+        handleRemoveItem={handleRemoveItem}
       />
     );
-  }, []);
+  };
 
   return (
-    <div
-      ref={listRef}
-      onScroll={onScroll}
-      className='home-container'
-    >
-      {articles.map(item => (
-        <Fragment key={item.node.nid}>
-          {renderArticle(item)}
-          <div className='separator' />
-        </Fragment>
-      ))}
+    <div className='app-container'>
+      <Header />
+      <div
+        ref={listRef}
+        onScroll={onScroll}
+        className='home-container'
+      >
+        {articles.map(item => (
+          <Fragment key={item.node.nid}>
+            {renderArticle(item)}
+            <div className='separator' />
+          </Fragment>
+        ))}
 
-      {loading && <Placeholder />}
+        {loading && <Placeholder />}
+      </div>
     </div>
+
   );
 }
 
